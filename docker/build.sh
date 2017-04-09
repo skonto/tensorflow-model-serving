@@ -5,12 +5,25 @@ DOCKER_TAG="latest"
 DOCKER_REPO=tensorflow-serving
 
 function build_image {
-  docker build $CACHE_FLAG -t $DOCKER_USERNAME/${DOCKER_REPO}-cpu:$DOCKER_TAG -f Dockerfile .
+  if [ ! -z $CPU_ONLY ]; then
+    docker build $CACHE_FLAG -t $DOCKER_USERNAME/${DOCKER_REPO}-cpu:$DOCKER_TAG -f Dockerfile.cpu .
+  fi
+
+  if [ ! -z $GPU_ONLY ]; then
+    docker build $CACHE_FLAG -t $DOCKER_USERNAME/${DOCKER_REPO}-gpu:$DOCKER_TAG -f Dockerfile.gpu .
+  fi
 }
 
 function push_image {
 	docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-	docker push $DOCKER_USERNAME/${DOCKER_REPO}-cpu:$DOCKER_TAG
+
+  if [ ! -z $CPU_ONLY ]; then
+    docker push $DOCKER_USERNAME/${DOCKER_REPO}-cpu:$DOCKER_TAG
+  fi
+
+  if [ ! -z $GPU_ONLY ]; then
+    docker push $DOCKER_USERNAME/${DOCKER_REPO}-gpu:$DOCKER_TAG
+  fi
 }
 
 function parse_arguments {
@@ -70,8 +83,13 @@ function parse_arguments {
         shift 1
         continue
       ;;
-      --push)
-        PUSH="TRUE"
+      --cpu-only)
+        CPU_ONLY="TRUE"
+        shift 1
+        continue
+      ;;
+      --gpu-only)
+        GPU_ONLY="TRUE"
         shift 1
         continue
       ;;
@@ -110,11 +128,13 @@ function usage {
 
   Options:
   --build                     Docker image will be built only. No push takes place.
+  --cpu-only                  Build only the cpu image.
   --docker-password           Password for the account on dockerhub.
   --docker-repo               The prefix for the names of the images. Default: tensoflow-serving.
   --docker-tag                Tag for the image. Default: latest.
   --docker-username           Username on dockerhub. Part of the repo format.
                               <hub-user>/<repo-name>:<tag>
+  --gpu-only                  Build only the gpu image.
   --no-cache                  Build from scratch no cache is used for docker.
   --push                      Image will be pushed.
                               Will use the same repo as the one used for the build.
@@ -125,15 +145,20 @@ EOF
 function main {
   parse_arguments "$@"
 
-  if [ -z "$DOCKER_USERNAME" ]; then
+  if [ -z $DOCKER_USERNAME ]; then
     echo "A docker account must be provided..."
     show_help
     exit 1
   fi
 
-  if [ -z "$BUILD" ] && [ -z "$PUSH" ]; then
+  if [ -z $BUILD ] && [ -z $PUSH ]; then
     BUILD="TRUE"
     PUSH="TRUE"
+  fi
+
+  if [ -z $GPU_ONLY ] && [ -z $CPU_ONLY ]; then
+    CPU_ONLY="TRUE"
+    GPU_ONLY="TRUE"
   fi
 
   if [ -z "$DOCKER_PASSWORD" ] && [ -n "$PUSH" ]; then
