@@ -1,6 +1,6 @@
 # Instructions
 
-The docker files are derived from and have several modifications for bugs ir further automation: https://raw.githubusercontent.com/tensorflow/serving/master/tensorflow_serving/tools/docker/Dockerfile.devel
+The docker files are derived from the link bellow and they have several modifications for bugs for further automation: https://raw.githubusercontent.com/tensorflow/serving/master/tensorflow_serving/tools/docker/Dockerfile.devel
 
 - Build the images and push them:
 
