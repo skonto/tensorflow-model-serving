@@ -1,2 +1,1 @@
-# Repo for tensorflow serving tests 
-
+# Tensorflow Serving Evaluation and Examples
