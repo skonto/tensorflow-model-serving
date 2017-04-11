@@ -90,12 +90,14 @@ RUN ln -s /usr/lib/x86_64-linux-gnu/libcudnn.so /usr/local/cuda/lib64/libcudnn.s
 
 RUN sed -i.bak 's/@org_tensorflow\/\/third_party\/gpus\/crosstool/@local_config_cuda\/\/crosstool:toolchain/g' /serving/tools/bazel.rc
 
+RUN sed -i.bak 's/external\/nccl_archive\/src\/nccl.h/src\/nccl.h/g' serving/tensorflow/tensorflow/contrib/nccl/kernels/nccl_ops.cc
+
+RUN sed -i.bak 's/external\/nccl_archive\/src\/nccl.h/src\/nccl.h/g' serving/tensorflow/tensorflow/contrib/nccl/kernels/nccl_manager.h
+
 RUN cd serving && bazel clean --expunge
 
 ENV TF_NEED_CUDA 1
 
-RUN sed -i.bak 's/"\/\/tensorflow\/contrib\/nccl:nccl_py"/#     "\/\/tensorflow\/contrib\/nccl:nccl_py"/g' /serving/tensorflow/tensorflow/contrib/BUILD
-
-RUN cd serving && bazel build --config=opt --config=cuda tensorflow_serving/...
+RUN cd /serving && bazel build -c opt --config=cuda tensorflow_serving/...
 
 CMD ["/bin/bash"]
