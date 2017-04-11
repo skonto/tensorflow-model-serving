@@ -54,7 +54,6 @@ Issues found so far for image building:
 
 - https://github.com/tensorflow/serving/issues/327
 
-Other itneresting issues for serving:
+Other interesting issues for serving:
 
 - https://github.com/tensorflow/serving/issues/380
-(no dynamic support for model update should be doable with code modifications)
