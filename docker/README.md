@@ -2,7 +2,7 @@
 
 The docker files are derived from the link bellow and they have several modifications for bugs and for further automation: https://raw.githubusercontent.com/tensorflow/serving/master/tensorflow_serving/tools/docker/Dockerfile.devel
 
-- Build the images and push them:
+**Build the images and push them** :
 
 `build.sh --docker-username  xxxxx -docker-password xxxxx`
 
