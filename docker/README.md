@@ -138,4 +138,4 @@ skonto/tensorflow-serving-cpu   latest              140e2f915962        47 minut
 skonto/tensorflow-serving-gpu   latest              1abf62f5b746        2 hours ago         9.83 GB
 ```
 
-TODO: Probably nvidia-docker setup is more minimal but lacks documentation. Another option is to try optimize the docker files.
+TODO:  Optimize the docker files.
