@@ -128,7 +128,7 @@ Other interesting issues for serving:
 Tensorflow official docker images:
 https://github.com/tensorflow/tensorflow/blob/master/tensorflow/tools/docker/README.md
 
-(For that imagesp port 8888 is for ipython notebooks and port 6006 is for TensorBoard).
+(For that images port 8888 is for ipython notebooks and port 6006 is for TensorBoard).
 
 
 Our images created for tensorflow serving are huge:
