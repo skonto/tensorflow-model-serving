@@ -124,3 +124,18 @@ Issues found so far for image building:
 Other interesting issues for serving:
 
 - https://github.com/tensorflow/serving/issues/380
+
+Tensorflow official docker images:
+https://github.com/tensorflow/tensorflow/blob/master/tensorflow/tools/docker/README.md
+
+(For that imagesp port 8888 is for ipython notebooks and port 6006 is for TensorBoard).
+
+
+Our images created for tensorflow serving are huge:
+```
+REPOSITORY                      TAG                 IMAGE ID            CREATED             SIZE
+skonto/tensorflow-serving-cpu   latest              140e2f915962        47 minutes ago      12.9 GB
+skonto/tensorflow-serving-gpu   latest              1abf62f5b746        2 hours ago         9.83 GB
+```
+
+TODO: Probably nvidia-docker setup is more minimal but lacks documentation. Another option is to try optimize the docker files.
