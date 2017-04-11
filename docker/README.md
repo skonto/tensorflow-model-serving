@@ -15,7 +15,7 @@ for gpu as well.
 
 TODO: migrate images from 14.04 to 16.04.
 
-## Run the tensorflow server with the example [here](https://tensorflow.github.io/serving/serving_advanced)
+## Run the tensorflow model server with the example [here](https://tensorflow.github.io/serving/serving_advanced)
 
 **CPU case** :
 
